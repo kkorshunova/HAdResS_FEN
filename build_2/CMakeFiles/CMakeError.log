@@ -1,0 +1,250 @@
+Determining if files direct.h exist failed with the following output:
+Change Dir: /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_d74e2/fast 
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_d74e2.dir/build.make CMakeFiles/cmTC_d74e2.dir/build
+Building C object CMakeFiles/cmTC_d74e2.dir/HAVE_DIRECT_H.c.o
+/usr/local/bin/gcc-8   -fexcess-precision=fast -Wall -Wno-unused    -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -o CMakeFiles/cmTC_d74e2.dir/HAVE_DIRECT_H.c.o   -c /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CheckIncludeFiles/HAVE_DIRECT_H.c
+/Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CheckIncludeFiles/HAVE_DIRECT_H.c:2:10: fatal error: direct.h: No such file or directory
+ #include <direct.h>
+          ^~~~~~~~~~
+compilation terminated.
+make[1]: *** [CMakeFiles/cmTC_d74e2.dir/HAVE_DIRECT_H.c.o] Error 1
+make: *** [cmTC_d74e2/fast] Error 2
+
+Source:
+/* */
+#include <direct.h>
+
+
+int main(void){return 0;}
+
+Determining if files io.h exist failed with the following output:
+Change Dir: /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_713da/fast 
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_713da.dir/build.make CMakeFiles/cmTC_713da.dir/build
+Building C object CMakeFiles/cmTC_713da.dir/HAVE_IO_H.c.o
+/usr/local/bin/gcc-8   -fexcess-precision=fast -Wall -Wno-unused    -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -o CMakeFiles/cmTC_713da.dir/HAVE_IO_H.c.o   -c /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CheckIncludeFiles/HAVE_IO_H.c
+/Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CheckIncludeFiles/HAVE_IO_H.c:2:10: fatal error: io.h: No such file or directory
+ #include <io.h>
+          ^~~~~~
+compilation terminated.
+make[1]: *** [CMakeFiles/cmTC_713da.dir/HAVE_IO_H.c.o] Error 1
+make: *** [cmTC_713da/fast] Error 2
+
+Source:
+/* */
+#include <io.h>
+
+
+int main(void){return 0;}
+
+Determining if the function memalign exists failed with the following output:
+Change Dir: /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_c002a/fast 
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_c002a.dir/build.make CMakeFiles/cmTC_c002a.dir/build
+Building C object CMakeFiles/cmTC_c002a.dir/CheckFunctionExists.c.o
+/usr/local/bin/gcc-8   -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=memalign -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -o CMakeFiles/cmTC_c002a.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.14.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_c002a
+/usr/local/Cellar/cmake/3.14.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c002a.dir/link.txt --verbose=1
+/usr/local/bin/gcc-8 -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=memalign -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_c002a.dir/CheckFunctionExists.c.o  -o cmTC_c002a 
+Undefined symbols for architecture x86_64:
+  "_memalign", referenced from:
+      _main in CheckFunctionExists.c.o
+ld: symbol(s) not found for architecture x86_64
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTC_c002a] Error 1
+make: *** [cmTC_c002a/fast] Error 2
+
+
+Determining if the function _aligned_malloc exists failed with the following output:
+Change Dir: /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_5ec82/fast 
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_5ec82.dir/build.make CMakeFiles/cmTC_5ec82.dir/build
+Building C object CMakeFiles/cmTC_5ec82.dir/CheckFunctionExists.c.o
+/usr/local/bin/gcc-8   -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=_aligned_malloc -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -o CMakeFiles/cmTC_5ec82.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.14.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_5ec82
+/usr/local/Cellar/cmake/3.14.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5ec82.dir/link.txt --verbose=1
+/usr/local/bin/gcc-8 -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=_aligned_malloc -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_5ec82.dir/CheckFunctionExists.c.o  -o cmTC_5ec82 
+Undefined symbols for architecture x86_64:
+  "__aligned_malloc", referenced from:
+      _main in CheckFunctionExists.c.o
+ld: symbol(s) not found for architecture x86_64
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTC_5ec82] Error 1
+make: *** [cmTC_5ec82/fast] Error 2
+
+
+Determining if the function _isnan exists failed with the following output:
+Change Dir: /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_41354/fast 
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_41354.dir/build.make CMakeFiles/cmTC_41354.dir/build
+Building C object CMakeFiles/cmTC_41354.dir/CheckFunctionExists.c.o
+/usr/local/bin/gcc-8   -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=_isnan -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -o CMakeFiles/cmTC_41354.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.14.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_41354
+/usr/local/Cellar/cmake/3.14.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_41354.dir/link.txt --verbose=1
+/usr/local/bin/gcc-8 -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=_isnan -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_41354.dir/CheckFunctionExists.c.o  -o cmTC_41354 
+Undefined symbols for architecture x86_64:
+  "__isnan", referenced from:
+      _main in CheckFunctionExists.c.o
+ld: symbol(s) not found for architecture x86_64
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTC_41354] Error 1
+make: *** [cmTC_41354/fast] Error 2
+
+
+Determining if the function isfinite exists failed with the following output:
+Change Dir: /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_379d8/fast 
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_379d8.dir/build.make CMakeFiles/cmTC_379d8.dir/build
+Building C object CMakeFiles/cmTC_379d8.dir/CheckFunctionExists.c.o
+/usr/local/bin/gcc-8   -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=isfinite -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -o CMakeFiles/cmTC_379d8.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.14.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_379d8
+/usr/local/Cellar/cmake/3.14.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_379d8.dir/link.txt --verbose=1
+/usr/local/bin/gcc-8 -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=isfinite -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_379d8.dir/CheckFunctionExists.c.o  -o cmTC_379d8 
+Undefined symbols for architecture x86_64:
+  "_isfinite", referenced from:
+      _main in CheckFunctionExists.c.o
+ld: symbol(s) not found for architecture x86_64
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTC_379d8] Error 1
+make: *** [cmTC_379d8/fast] Error 2
+
+
+Determining if the function _isfinite exists failed with the following output:
+Change Dir: /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_441cb/fast 
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_441cb.dir/build.make CMakeFiles/cmTC_441cb.dir/build
+Building C object CMakeFiles/cmTC_441cb.dir/CheckFunctionExists.c.o
+/usr/local/bin/gcc-8   -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=_isfinite -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -o CMakeFiles/cmTC_441cb.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.14.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_441cb
+/usr/local/Cellar/cmake/3.14.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_441cb.dir/link.txt --verbose=1
+/usr/local/bin/gcc-8 -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=_isfinite -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_441cb.dir/CheckFunctionExists.c.o  -o cmTC_441cb 
+Undefined symbols for architecture x86_64:
+  "__isfinite", referenced from:
+      _main in CheckFunctionExists.c.o
+ld: symbol(s) not found for architecture x86_64
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTC_441cb] Error 1
+make: *** [cmTC_441cb/fast] Error 2
+
+
+Determining if the function _fileno exists failed with the following output:
+Change Dir: /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_f30da/fast 
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_f30da.dir/build.make CMakeFiles/cmTC_f30da.dir/build
+Building C object CMakeFiles/cmTC_f30da.dir/CheckFunctionExists.c.o
+/usr/local/bin/gcc-8   -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=_fileno -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -o CMakeFiles/cmTC_f30da.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.14.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_f30da
+/usr/local/Cellar/cmake/3.14.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f30da.dir/link.txt --verbose=1
+/usr/local/bin/gcc-8 -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=_fileno -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_f30da.dir/CheckFunctionExists.c.o  -o cmTC_f30da 
+Undefined symbols for architecture x86_64:
+  "__fileno", referenced from:
+      _main in CheckFunctionExists.c.o
+ld: symbol(s) not found for architecture x86_64
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTC_f30da] Error 1
+make: *** [cmTC_f30da/fast] Error 2
+
+
+Determining if the function _commit exists failed with the following output:
+Change Dir: /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_20e44/fast 
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_20e44.dir/build.make CMakeFiles/cmTC_20e44.dir/build
+Building C object CMakeFiles/cmTC_20e44.dir/CheckFunctionExists.c.o
+/usr/local/bin/gcc-8   -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=_commit -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -o CMakeFiles/cmTC_20e44.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.14.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_20e44
+/usr/local/Cellar/cmake/3.14.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_20e44.dir/link.txt --verbose=1
+/usr/local/bin/gcc-8 -fexcess-precision=fast -Wall -Wno-unused   -DCHECK_FUNCTION_EXISTS=_commit -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_20e44.dir/CheckFunctionExists.c.o  -o cmTC_20e44 
+Undefined symbols for architecture x86_64:
+  "__commit", referenced from:
+      _main in CheckFunctionExists.c.o
+ld: symbol(s) not found for architecture x86_64
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTC_20e44] Error 1
+make: *** [cmTC_20e44/fast] Error 2
+
+
+Determining size of bool failed with the following output:
+Change Dir: /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_d6e40/fast 
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_d6e40.dir/build.make CMakeFiles/cmTC_d6e40.dir/build
+Building C object CMakeFiles/cmTC_d6e40.dir/SIZEOF_BOOL.c.o
+/usr/local/bin/gcc-8   -fexcess-precision=fast -Wall -Wno-unused    -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -o CMakeFiles/cmTC_d6e40.dir/SIZEOF_BOOL.c.o   -c /Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CheckTypeSize/SIZEOF_BOOL.c
+/Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CheckTypeSize/SIZEOF_BOOL.c:23:22: error: 'bool' undeclared here (not in a function)
+ #define SIZE (sizeof(bool))
+                      ^~~~
+/Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CheckTypeSize/SIZEOF_BOOL.c:25:12: note: in expansion of macro 'SIZE'
+   ('0' + ((SIZE / 10000)%10)),
+            ^~~~
+make[1]: *** [CMakeFiles/cmTC_d6e40.dir/SIZEOF_BOOL.c.o] Error 1
+make: *** [cmTC_d6e40/fast] Error 2
+
+/Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/build_2/CMakeFiles/CheckTypeSize/SIZEOF_BOOL.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#elif defined(__aarch64__)
+# define KEY '_','_','a','a','r','c','h','6','4','_','_'
+#elif defined(__ARM_ARCH_7A__)
+# define KEY '_','_','A','R','M','_','A','R','C','H','_','7','A','_','_'
+#elif defined(__ARM_ARCH_7S__)
+# define KEY '_','_','A','R','M','_','A','R','C','H','_','7','S','_','_'
+#endif
+
+#define SIZE (sizeof(bool))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Checking whether the ASM-ATT compiler is GNU using "--version" did not match "(GNU assembler)|(GCC)|(Free Software Foundation)":
+Apple LLVM version 10.0.0 (clang-1000.10.44.4)
+Target: x86_64-apple-darwin18.0.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+Checking whether the ASM-ATT compiler is Clang using "--version" did not match "(clang version)":
+Apple LLVM version 10.0.0 (clang-1000.10.44.4)
+Target: x86_64-apple-darwin18.0.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin

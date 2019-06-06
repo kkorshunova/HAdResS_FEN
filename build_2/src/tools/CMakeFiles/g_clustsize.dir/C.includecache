@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/gmx_ana.h
+
+/Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/src/tools/g_clustsize.c
+config.h
+-
+gmx_ana.h
+-
+
+src/config.h
+swindirect.h
+src/swindirect.h
+

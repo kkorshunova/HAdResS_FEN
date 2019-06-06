@@ -1,0 +1,12 @@
+libdir=/Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/install_2/lib
+includedir=/Users/kseniakorshunova/Documents/PhD_project/gromacs_HAdResS/hadress/install_2/include
+
+Name: libmd
+Description: Gromacs md lib
+URL: http://www.gromacs.org
+Version: 4.6-dev
+Requires: libgmx  libxml-2.0
+Libs.private: -lm 
+Libs: -L${libdir} -lmd 
+Cflags: -I${includedir}  -DGMX_SOFTWARE_INVSQRT
+
