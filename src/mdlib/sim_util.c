@@ -97,6 +97,8 @@
 #include "adress.h"
 #include "qmmm.h"
 
+#include "forceprint.h" //KKOR191024
+
 #if 0
 typedef struct gmx_timeprint {
     
@@ -426,7 +428,7 @@ void do_force(FILE *fplog,t_commrec *cr,
     int    cg0,cg1,i,j;
     int    start,homenr;
     double mu[2*DIM]; 
-    gmx_bool   bSepDVDL,bStateChanged,bNS,bFillGrid,bCalcCGCM,bBS;
+    gmx_bool   bSepDVDL,bStateChanged,bNS,bFillGrid,bCalcCGCM,bBS,bPrintSepForce; //KKOR191024: added bPrintSepForce
     gmx_bool   bDoLongRange,bDoForces,bSepLRF;
     gmx_bool   bDoAdressWF;
     matrix boxs;
@@ -438,6 +440,7 @@ void do_force(FILE *fplog,t_commrec *cr,
     homenr = mdatoms->homenr;
 
     bSepDVDL = (fr->bSepDVDL && do_per_step(step,inputrec->nstlog));
+    bPrintSepForce = do_per_step(step,inputrec->nstfout); //KKOR191024: used in print_force()
 
     clear_mat(vir_force);
 
@@ -806,6 +809,12 @@ void do_force(FILE *fplog,t_commrec *cr,
             adress_thermo_force(start,homenr,&(top->cgs),x,fr->f_novirsum,fr,mdatoms,
                                 inputrec->ePBC==epbcNONE ? NULL : &pbc, &enerd->term[F_ADR_DELTU]);
         }
+
+        //KKOR191024: 2=print only thermoforce
+        if (bPrintSepForce) {
+            int num = 2;
+            print_force(cr, fr->f_novirsum, step, mtop->natoms, num);
+        }
         
         /* Communicate the forces */
         if (PAR(cr))
@@ -870,6 +879,12 @@ void do_force(FILE *fplog,t_commrec *cr,
             /* Calculation of the virial must be done after vsites! */
             calc_virial(fplog,mdatoms->start,mdatoms->homenr,x,f,
                         vir_force,graph,box,nrnb,fr,inputrec->ePBC);
+        }
+
+        //KKOR191024: 3=print kernel+drift + spread from B kernel+drift
+        if (bPrintSepForce) {
+            int num = 3;
+            print_force(cr, f, step, mtop->natoms, num);
         }
     }
 
@@ -959,6 +974,12 @@ void do_force(FILE *fplog,t_commrec *cr,
             {
                 pr_rvecs(debug,0,"vir_force",vir_force,DIM);
             }
+        }
+
+        //KKOR191024: 4=print final force (kernel+drift + spread from B kernel+drift + spread from B thermo)
+        if (bPrintSepForce) {
+            int num = 4;
+            print_force(cr, f, step, mtop->natoms, num);
         }
     }
     

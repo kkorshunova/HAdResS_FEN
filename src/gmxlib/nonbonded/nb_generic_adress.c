@@ -198,8 +198,8 @@ gmx_nb_generic_adress_kernel(t_nblist *           nlist,
               //  if (k==nj0) printf("CG %g %g\n", ix, hybscal);
             }
 
-            // 190514 KKOR:
-            if(hybscal==0) continue;
+            // 190514 KKOR: skipping is not possible ATM, because V_tot still needs to be calculated for drift force correction...
+            // if(hybscal==0) continue;
             
 
             

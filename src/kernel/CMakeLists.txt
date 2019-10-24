@@ -95,7 +95,7 @@ add_executable(gmxcheck gmxcheck.c)
 target_link_libraries(gmxcheck ${GMX_EXTRA_LIBRARIES})
 set_target_properties(gmxcheck PROPERTIES OUTPUT_NAME "gmxcheck${GMX_BINARY_SUFFIX}")
 
-add_executable(mdrun ${MDRUN_SOURCES})
+add_executable(mdrun ${MDRUN_SOURCES} ../../include/forceprint.h)
 target_link_libraries(mdrun ${GMX_EXTRA_LIBRARIES} ${GMX_OPENMM_LIBRARIES})
 set_target_properties(mdrun PROPERTIES OUTPUT_NAME "mdrun${GMX_BINARY_SUFFIX}")
 

@@ -64,6 +64,8 @@
 #include "qmmm.h"
 #include "mpelogging.h"
 
+#include "forceprint.h" //KKOR191024
+
 
 void ns(FILE *fp,
         t_forcerec *fr,
@@ -138,7 +140,7 @@ void do_force_lowlevel(FILE       *fplog,   gmx_large_int_t step,
 {
     int     i,status;
     int     donb_flags;
-    gmx_bool    bDoEpot,bSepDVDL,bSB;
+    gmx_bool    bDoEpot,bSepDVDL,bSB,bPrintSepForce; //KKOR191024: added bPrintSepForce
     int     pme_flags;
     matrix  boxs;
     rvec    box_size;
@@ -151,7 +153,7 @@ void do_force_lowlevel(FILE       *fplog,   gmx_large_int_t step,
     real    dvdl_dum;
     int    cg0,cg1, cg1home;
 
-
+    bPrintSepForce = do_per_step(step,ir->nstfout); //KKOR191024: used in print_force()
 
     if (PARTDECOMP(cr))
     {
@@ -286,6 +288,12 @@ void do_force_lowlevel(FILE       *fplog,   gmx_large_int_t step,
         destroy_enerdata(&ed_lam);
     }
     where();
+
+    //KKOR191024: 0=print kernel output
+    if (bPrintSepForce) {
+        int num = 0;
+        print_force(cr, f, step, mtop->natoms, num);
+    }
 	
 	/* If we are doing GB, calculate bonded forces and apply corrections 
 	 * to the solvation forces */
@@ -610,6 +618,12 @@ void do_force_lowlevel(FILE       *fplog,   gmx_large_int_t step,
 
     if (fr->adress_type != eAdressOff && fr->adress_do_drift)
         adress_drift_term(fplog,cg0,cg1, cg1home,&(top->cgs),x,fr,md,ir->ePBC==epbcNONE ? NULL : &pbc, f, &enerd->term[F_ADR_DELTU]);
+
+    //KKOR191024: 1=print kernel output + drif term
+    if (bPrintSepForce) {
+        int num = 0;
+        print_force(cr, f, step, mtop->natoms, num);
+    }
     
     GMX_MPE_LOG(ev_force_finish);
 

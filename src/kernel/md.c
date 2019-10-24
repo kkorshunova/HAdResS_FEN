@@ -1708,7 +1708,7 @@ double do_md(FILE *fplog,t_commrec *cr,int nfile,const t_filenm fnm[],
                     fprintf(adress_ontheflyFP, "Printing Drift term averages\n");
 		    fprintf(adress_ontheflyFP, "i, i/adress_dhdlbins, adress_fcorr_count, adress_dhdl[i]/adress_fcorr_count, adress_cgdens[i]/adress_fcorr_count, adress_fcorr[i], adress_fcorr[i]/adress_fcorr_count\n");
                     for (i = 0; i < fr->adress_dhdlbins; i++) {
-                        fprintf(adress_ontheflyFP, "%d %g %g %g %g %g %g\n", i, (float) i / (float) fr->adress_dhdlbins, fr->adress_fcorr_count,
+                        fprintf(adress_ontheflyFP, "%d %g %d %g %g %g %g\n", i, (float) i / (float) fr->adress_dhdlbins, fr->adress_fcorr_count,
                                 fr->adress_dhdl[i]/fr->adress_fcorr_count, fr->adress_cgdens[i]/fr->adress_fcorr_count, fr->adress_fcorr[i], fr->adress_fcorr[i]/fr->adress_fcorr_count);
                     }
 

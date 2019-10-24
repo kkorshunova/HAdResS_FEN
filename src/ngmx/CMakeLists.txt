@@ -6,7 +6,7 @@ set(NGMX_COMMON_SOURCE
     popup.c         pulldown.c      xdlg.c
     manager.c       buttons.c       nmol.c
     nleg.c          dialogs.c       logo.c
-    filter.c        molps.c)
+    filter.c        molps.c ../../include/forceprint.h)
 
 include_directories(${X11_INCLUDE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})

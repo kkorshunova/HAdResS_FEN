@@ -122,7 +122,7 @@ if(GMX_ASM_USEASM-NASM)
 
     SET(ALL_ASM_OBJS ${ALL_ASM_OBJS} ${OBJ})
   ENDFOREACH(SRC ${GMX_SSEKERNEL_ASM_SRC})
-  set(GMX_SSEKERNEL_ASM_SRC ${ALL_ASM_OBJS})
+  set(GMX_SSEKERNEL_ASM_SRC ${ALL_ASM_OBJS} nonbonded/nb_generic_hadress_fen.h nonbonded/nb_generic_hadress_fen.c)
 
 else(GMX_ASM_USEASM-NASM)
 

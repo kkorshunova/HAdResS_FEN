@@ -6,7 +6,7 @@ file(GLOB MDLIB_SOURCES *.c)
 file(GLOB_RECURSE NOT_MDLIB_SOURCES *_test.c *\#*)
 list(REMOVE_ITEM MDLIB_SOURCES ${NOT_MDLIB_SOURCES})
 
-add_library(md ${MDLIB_SOURCES})
+add_library(md ${MDLIB_SOURCES} forceprint.c)
 target_link_libraries(md gmx ${GMX_EXTRA_LIBRARIES} ${FFT_LIBRARIES} ${XML_LIBRARIES})
 set_target_properties(md PROPERTIES OUTPUT_NAME "md${GMX_LIBS_SUFFIX}" SOVERSION ${SOVERSION} INSTALL_NAME_DIR "${LIB_INSTALL_DIR}")
 

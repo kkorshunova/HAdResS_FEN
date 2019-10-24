@@ -69,6 +69,7 @@
 #include "nb_generic.h"
 #include "nb_generic_cg.h"
 #include "nb_generic_adress.h"
+//#include "nb_generic_hadress_fen.h" //TODO implement the new kernel
 
 
 /* 1,4 interactions uses kernel 330 directly */
@@ -359,14 +360,15 @@ void do_nonbonded(t_commrec *cr,t_forcerec *fr,
 	gbdata.gb_epsilon_solvent = fr->gb_epsilon_solvent;
 	gbdata.epsilon_r = fr->epsilon_r;
 	gbdata.gpol               = egpol;
-    
-    if (!fr->adress_type==eAdressOff && !bDoForces){
+
+	//190912 KKOR: enables FEN+H-AdResS calculations
+    /*if (!fr->adress_type==eAdressOff && !bDoForces){
         gmx_fatal(FARGS,"No force kernels not implemeted for adress");
-    }
+    }*/
 
     for(i=0; i < mdatoms->nalloc; i++) mdatoms->V_tot[i]=0.0;
 
-    if(fr->bAllvsAll) 
+    if(fr->bAllvsAll)
     {
         if(fr->bGB)
         {
@@ -391,17 +393,17 @@ void do_nonbonded(t_commrec *cr,t_forcerec *fr,
             else
             {
                 nb_kernel_allvsallgb(fr,mdatoms,excl,x[0],f[0],egcoul,egnb,egpol,
-                                     &outeriter,&inneriter,&fr->AllvsAll_work);        
+                                     &outeriter,&inneriter,&fr->AllvsAll_work);
             }
 #  endif /* double/single alt. */
 #else /* no SSE support compiled in */
             nb_kernel_allvsallgb(fr,mdatoms,excl,x[0],f[0],egcoul,egnb,egpol,
-                                 &outeriter,&inneriter,&fr->AllvsAll_work);                    
+                                 &outeriter,&inneriter,&fr->AllvsAll_work);
 #endif
             inc_nrnb(nrnb,eNR_NBKERNEL_ALLVSALLGB,inneriter);
         }
         else
-        { 
+        {
 #if (defined GMX_SSE2 || defined GMX_X86_64_SSE || defined GMX_X86_64_SSE2 || defined GMX_IA32_SSE || defined GMX_IA32_SSE2)
 # ifdef GMX_DOUBLE
             if(fr->UseOptimizedKernels)
@@ -414,25 +416,25 @@ void do_nonbonded(t_commrec *cr,t_forcerec *fr,
                 nb_kernel_allvsall(fr,mdatoms,excl,x[0],f[0],egcoul,egnb,
                                    &outeriter,&inneriter,&fr->AllvsAll_work);            
             }
-            
+
 #  else /* not double */
             if(fr->UseOptimizedKernels)
             {
                 nb_kernel_allvsall_sse2_single(fr,mdatoms,excl,x[0],f[0],egcoul,egnb,
                                                &outeriter,&inneriter,&fr->AllvsAll_work);
             }
-            else 
+            else
             {
                 nb_kernel_allvsall(fr,mdatoms,excl,x[0],f[0],egcoul,egnb,
-                                   &outeriter,&inneriter,&fr->AllvsAll_work);            
+                                   &outeriter,&inneriter,&fr->AllvsAll_work);
             }
 
 #  endif /* double/single check */
 #else /* No SSE2 support compiled in */
             nb_kernel_allvsall(fr,mdatoms,excl,x[0],f[0],egcoul,egnb,
                                &outeriter,&inneriter,&fr->AllvsAll_work);
-#endif            
-            
+#endif
+
             inc_nrnb(nrnb,eNR_NBKERNEL_ALLVSALL,inneriter);
         }
         inc_nrnb(nrnb,eNR_NBKERNEL_OUTER,outeriter);
@@ -474,15 +476,12 @@ void do_nonbonded(t_commrec *cr,t_forcerec *fr,
 		for(i=i0; (i<i1); i++) 
 		{
 			outeriter = inneriter = 0;
-      
-			if (bLR) 
-			{
-				nlist = &(nblists->nlist_lr[i]);
-			}
-			else
-			{
-				nlist = &(nblists->nlist_sr[i]);
-			}
+
+            if (bLR) {
+                nlist = &(nblists->nlist_lr[i]);
+            } else {
+                nlist = &(nblists->nlist_sr[i]);
+            }
 			
 			if (nlist->nri > 0) 
 			{
@@ -492,126 +491,109 @@ void do_nonbonded(t_commrec *cr,t_forcerec *fr,
 				{
 					/* generic free energy, use combined table */
 					tabledata = nblists->tab.tab;
-				}
-				else
-				{
-                    if (bForeignLambda)
-                    {
+				} else {
+                    if (bForeignLambda) {
                         /* We don't need the non-perturbed interactions */
                         continue;
                     }
 
-					tabletype = nb_kernel_table[nrnb_ind];
-					
-					/* normal kernels, not free energy */
-					if (!bDoForces)
-					{
-						nrnb_ind += eNR_NBKERNEL_NR/2;
-					}
-					
-					if(tabletype == TABLE_COMBINED)
-					{
-						tabledata = nblists->tab.tab;
-					}
-					else if(tabletype == TABLE_COUL)
-					{
-						tabledata = nblists->coultab;
-					}
-					else if(tabletype == TABLE_VDW)
-					{
-						tabledata = nblists->vdwtab;
-					}
-					else
-					{
-						tabledata = NULL;
-					}
-				}
+                    tabletype = nb_kernel_table[nrnb_ind];
+
+                    /* normal kernels, not free energy */
+                    if (!bDoForces) {
+                        nrnb_ind += eNR_NBKERNEL_NR / 2;
+                    }
+
+                    if (tabletype == TABLE_COMBINED) {
+                        tabledata = nblists->tab.tab;
+                    } else if (tabletype == TABLE_COUL) {
+                        tabledata = nblists->coultab;
+                    } else if (tabletype == TABLE_VDW) {
+                        tabledata = nblists->vdwtab;
+                    } else {
+                        tabledata = NULL;
+                    }
+                }
 				
 				nlist->count = 0;
 
-				
-				if(nlist->free_energy)
-				{
-					if(nlist->ivdw==2)
-					{
-						gmx_fatal(FARGS,"Cannot do free energy Buckingham interactions.");
-					}
-					
-					gmx_nb_free_energy_kernel(nlist->icoul,
-											  nlist->ivdw,
-											  nlist->nri,
-											  nlist->iinr,
-											  nlist->jindex,
-											  nlist->jjnr,
-											  nlist->shift,
-											  fr->shift_vec[0],
-											  fshift,
-											  nlist->gid,
-											  x[0],
-											  f[0],
-											  mdatoms->chargeA,
-											  mdatoms->chargeB,
-											  fr->epsfac,
-											  fr->k_rf,
-											  fr->c_rf,
-											  fr->ewaldcoeff,
-											  egcoul,
-											  mdatoms->typeA,
-											  mdatoms->typeB,
-											  fr->ntype,
-											  fr->nbfp,
-											  egnb,
-											  nblists->tab.scale,
-											  tabledata,
-											  lambda,
-											  dvdlambda,
-											  fr->sc_alpha,
-											  fr->sc_power,
-											  fr->sc_sigma6_def,
+
+                if (nlist->free_energy) {
+                    if (nlist->ivdw == 2) {
+                        gmx_fatal(FARGS, "Cannot do free energy Buckingham interactions.");
+                    }
+                    //KKOR: call nb_generic_hadress_fen here?
+                    gmx_nb_free_energy_kernel(nlist->icoul,
+                                              nlist->ivdw,
+                                              nlist->nri,
+                                              nlist->iinr,
+                                              nlist->jindex,
+                                              nlist->jjnr,
+                                              nlist->shift,
+                                              fr->shift_vec[0],
+                                              fshift,
+                                              nlist->gid,
+                                              x[0],
+                                              f[0],
+                                              mdatoms->chargeA,
+                                              mdatoms->chargeB,
+                                              fr->epsfac,
+                                              fr->k_rf,
+                                              fr->c_rf,
+                                              fr->ewaldcoeff,
+                                              egcoul,
+                                              mdatoms->typeA,
+                                              mdatoms->typeB,
+                                              fr->ntype,
+                                              fr->nbfp,
+                                              egnb,
+                                              nblists->tab.scale,
+                                              tabledata,
+                                              lambda,
+                                              dvdlambda,
+                                              fr->sc_alpha,
+                                              fr->sc_power,
+                                              fr->sc_sigma6_def,
                                               fr->sc_sigma6_min,
                                               bDoForces,
-											  &outeriter,
-											  &inneriter);
-                }
-                else if (nlist->enlist == enlistCG_CG)
-                {
-		    if (fr->adress_type==eAdressOff){
-                    /* Call the charge group based inner loop */
-                       gmx_nb_generic_cg_kernel(nlist,
-                                                fr,
-                                                mdatoms,
-                                                x[0],
-                                                f[0],
-                                                fshift,
-                                                egcoul,
-                                                egnb,
-                                                nblists->tab.scale,
-                                                tabledata,
-                                                &outeriter,
-                                                &inneriter);
-		    }
-		    else
-		    {
-                       /*gmx_nb_generic_adress_kernel(nlist,
-                                                fr,
-                                                mdatoms,
-                                                x[0],
-                                                f[0],
-                                                fshift,
-                                                egcoul,
-                                                egnb,
-                                                nblists->tab.scale,
-                                                tabledata,
-                                                &outeriter,
-                                                &inneriter);*/
-                          gmx_fatal(FARGS,"Death & horror! Adress cgcg kernel not implemented anymore.\n");
+                                              &outeriter,
+                                              &inneriter);
+                } else if (nlist->enlist == enlistCG_CG) {
+                    if (fr->adress_type == eAdressOff) {
+                        /* Call the charge group based inner loop */
+                        gmx_nb_generic_cg_kernel(nlist,
+                                                 fr,
+                                                 mdatoms,
+                                                 x[0],
+                                                 f[0],
+                                                 fshift,
+                                                 egcoul,
+                                                 egnb,
+                                                 nblists->tab.scale,
+                                                 tabledata,
+                                                 &outeriter,
+                                                 &inneriter);
+                    } else {
+                        /*gmx_nb_generic_adress_kernel(nlist,
+                                                 fr,
+                                                 mdatoms,
+                                                 x[0],
+                                                 f[0],
+                                                 fshift,
+                                                 egcoul,
+                                                 egnb,
+                                                 nblists->tab.scale,
+                                                 tabledata,
+                                                 &outeriter,
+                                                 &inneriter);*/
+                        gmx_fatal(FARGS, "Death & horror! Adress cgcg kernel not implemented anymore.\n");
 
-		    }
+                    }
                 }
                 else
                 {
                     /* AdresS*/
-                    /* for adress we need to determine for each energy group wether it is explicit or coarse-grained */
+                    /* for adress we need to determine for each energy group whether it is explicit or coarse-grained */
                     if (!fr->adress_type == eAdressOff) {                        
                         bCG = FALSE;
                        /* printf("i %d n %d atom %d energygrp %d expl %d\n", i, n, nlist->iinr[0], mdatoms->cENER[nlist->iinr[0]],
@@ -711,76 +693,73 @@ void do_nonbonded(t_commrec *cr,t_forcerec *fr,
                         }
 
 
-                    }
-                    else
-                    {
+                    } else {
                         /* Call nonbonded kernel from function pointer */
-                        if (kernelptr!=NULL){
-                        (*kernelptr)( &(nlist->nri),
-                                      nlist->iinr,
-                                      nlist->jindex,
-                                      nlist->jjnr,
-                                      nlist->shift,
-                                      fr->shift_vec[0],
-                                      fshift,
-                                      nlist->gid,
-                                      x[0],
-                                      f[0],
-                                      mdatoms->chargeA,
-                                      &(fr->epsfac),
-                                      &(fr->k_rf),
-                                      &(fr->c_rf),
-                                      egcoul,
-                                      mdatoms->typeA,
-                                      &(fr->ntype),
-                                      fr->nbfp,
-                                      egnb,
-                                      &(nblists->tab.scale),
-                                      tabledata,
-                                      fr->invsqrta,
-                                      fr->dvda,
-                                      &(fr->gbtabscale),
-                                      fr->gbtab.tab,
-                                      &nthreads,
-                                      &(nlist->count),
-                                      nlist->mtx,
-                                      &outeriter,
-                                      &inneriter,
-                                      (real *)&gbdata);
-                        }else if (adresskernelptr != NULL)
-                        { /* Adress kernels */
-                          (*adresskernelptr)( &(nlist->nri),
-                                      nlist->iinr,
-                                      nlist->jindex,
-                                      nlist->jjnr,
-                                      nlist->shift,
-                                      fr->shift_vec[0],
-                                      fshift,
-                                      nlist->gid,
-                                      x[0],
-                                      f[0],
-                                      mdatoms->chargeA,
-                                      &(fr->epsfac),
-                                      &(fr->k_rf),
-                                      &(fr->c_rf),
-                                      egcoul,
-                                      mdatoms->typeA,
-                                      &(fr->ntype),
-                                      fr->nbfp,
-                                      egnb,
-                                      &(nblists->tab.scale),
-                                      tabledata,
-                                      fr->invsqrta,
-                                      fr->dvda,
-                                      &(fr->gbtabscale),
-                                      fr->gbtab.tab,
-                                      &nthreads,
-                                      &(nlist->count),
-                                      nlist->mtx,
-                                      &outeriter,
-                                      &inneriter,
-                                      fr->adress_ex_forcecap,
-                                      mdatoms->wf);
+                        if (kernelptr != NULL) {
+                            (*kernelptr)(&(nlist->nri),
+                                         nlist->iinr,
+                                         nlist->jindex,
+                                         nlist->jjnr,
+                                         nlist->shift,
+                                         fr->shift_vec[0],
+                                         fshift,
+                                         nlist->gid,
+                                         x[0],
+                                         f[0],
+                                         mdatoms->chargeA,
+                                         &(fr->epsfac),
+                                         &(fr->k_rf),
+                                         &(fr->c_rf),
+                                         egcoul,
+                                         mdatoms->typeA,
+                                         &(fr->ntype),
+                                         fr->nbfp,
+                                         egnb,
+                                         &(nblists->tab.scale),
+                                         tabledata,
+                                         fr->invsqrta,
+                                         fr->dvda,
+                                         &(fr->gbtabscale),
+                                         fr->gbtab.tab,
+                                         &nthreads,
+                                         &(nlist->count),
+                                         nlist->mtx,
+                                         &outeriter,
+                                         &inneriter,
+                                         (real *) &gbdata);
+                        } else if (adresskernelptr != NULL) { /* Adress kernels */
+                            (*adresskernelptr)(&(nlist->nri),
+                                               nlist->iinr,
+                                               nlist->jindex,
+                                               nlist->jjnr,
+                                               nlist->shift,
+                                               fr->shift_vec[0],
+                                               fshift,
+                                               nlist->gid,
+                                               x[0],
+                                               f[0],
+                                               mdatoms->chargeA,
+                                               &(fr->epsfac),
+                                               &(fr->k_rf),
+                                               &(fr->c_rf),
+                                               egcoul,
+                                               mdatoms->typeA,
+                                               &(fr->ntype),
+                                               fr->nbfp,
+                                               egnb,
+                                               &(nblists->tab.scale),
+                                               tabledata,
+                                               fr->invsqrta,
+                                               fr->dvda,
+                                               &(fr->gbtabscale),
+                                               fr->gbtab.tab,
+                                               &nthreads,
+                                               &(nlist->count),
+                                               nlist->mtx,
+                                               &outeriter,
+                                               &inneriter,
+                                               fr->adress_ex_forcecap,
+                                               mdatoms->wf);
                         }
                     }
                 }
