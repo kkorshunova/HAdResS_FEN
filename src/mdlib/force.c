@@ -621,7 +621,7 @@ void do_force_lowlevel(FILE       *fplog,   gmx_large_int_t step,
 
     //KKOR191024: 1=print kernel output + drif term
     if (bPrintSepForce) {
-        int num = 0;
+        int num = 1;
         print_force(cr, f, step, mtop->natoms, num);
     }
     
