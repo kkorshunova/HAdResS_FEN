@@ -366,7 +366,9 @@ void do_nonbonded(t_commrec *cr,t_forcerec *fr,
         gmx_fatal(FARGS,"No force kernels not implemeted for adress");
     }*/
 
+    if(!bForeignLambda){
     for(i=0; i < mdatoms->nalloc; i++) mdatoms->V_tot[i]=0.0;
+    }
 
     if(fr->bAllvsAll)
     {
@@ -523,6 +525,20 @@ void do_nonbonded(t_commrec *cr,t_forcerec *fr,
                         gmx_fatal(FARGS, "Cannot do free energy Buckingham interactions.");
                     }
                     //KKOR: call nb_generic_hadress_fen here?
+                    /*continue;*/
+                    /*gmx_nb_generic_adress_kernel(nlist,
+                                                 fr,
+                                                 mdatoms,
+                                                 x[0],
+                                                 f[0],
+                                                 fshift,
+                                                 egcoul,
+                                                 egnb,
+                                                 nblists->tab.scale,
+                                                 tabledata,
+                                                 &outeriter,
+                                                 &inneriter,
+                                                 bCG);*/
                     gmx_nb_free_energy_kernel(nlist->icoul,
                                               nlist->ivdw,
                                               nlist->nri,
@@ -558,6 +574,7 @@ void do_nonbonded(t_commrec *cr,t_forcerec *fr,
                                               bDoForces,
                                               &outeriter,
                                               &inneriter);
+
                 } else if (nlist->enlist == enlistCG_CG) {
                     if (fr->adress_type == eAdressOff) {
                         /* Call the charge group based inner loop */
